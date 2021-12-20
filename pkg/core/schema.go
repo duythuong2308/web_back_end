@@ -1,30 +1,26 @@
 package core
 
 type Province struct {
-	Id   int
-	Name string
+	Id   string `gorm:"primary_key;type:varchar(191)"`
+	Name string `gorm:"type:varchar(191)"`
 }
 
 type District struct {
-	Id         int
-	ProvinceId int
-	Name       string
+	Id         string    `gorm:"primary_key;type:varchar(191)"`
+	ProvinceId string    // this field name follows gorm foreign key convention
+	Province   *Province `gorm:"constraint:fk_districts_provinceid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Name       string    `gorm:"type:varchar(191)"`
 }
 
 type Commune struct {
-	Id 			int
-	ProvinceId	int
-	DistrictId	int
-	Name 		string
-
+	Id         string `gorm:"type:varchar(191)"`
+	DistrictId string `gorm:"type:varchar(191)"`
+	Name       string `gorm:"type:varchar(191)"`
 }
 
 type Village struct {
-	Id 			int
-	ProvinceId	int
-	DistrictId	int
-	CommuneId	int
-	Name 		string
-	Population	int
+	Id         string `gorm:"type:varchar(191)"`
+	CommuneId  string `gorm:"type:varchar(191)"`
+	Name       string `gorm:"type:varchar(191)"`
+	Population int
 }
-
