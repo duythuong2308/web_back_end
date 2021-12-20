@@ -110,4 +110,16 @@ func TestRepo_UpsertProvince(t *testing.T) {
 			}
 		}
 	}
+
+}
+
+func TestRepo_UpsertProvince2(t *testing.T) {
+	read, err := repo0.ReadProvince("03")
+	if err != nil {
+		t.Errorf("error ReadProvince: %v", err)
+	}
+	t.Logf("read: %v", read)
+
+	//read.Name = "Bac Giaaaang"
+	//repo0.UpsertProvince(read)
 }
