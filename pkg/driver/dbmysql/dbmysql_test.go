@@ -123,3 +123,11 @@ func TestRepo_UpsertProvince2(t *testing.T) {
 	//read.Name = "Bac Giaaaang"
 	//repo0.UpsertProvince(read)
 }
+
+func TestRepo_UpsertVillage(t *testing.T) {
+	err := repo0.UpsertVillage("01010101", 123)
+	if err != nil {
+		t.Fatalf("error UpsertVillage: %v", err)
+	}
+	t.Logf("ok UpsertVillage")
+}

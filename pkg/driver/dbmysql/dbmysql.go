@@ -20,3 +20,15 @@ func (r Repo) ReadProvince(provinceId string) (core.Province, error) {
 func (r Repo) UpsertProvince(province core.Province) error {
 	return r.DB.Debug().Save(&province).Error
 }
+
+func (r Repo) UpsertVillage(villageId string, newPopulation int) error {
+	var village core.Village
+	err := r.DB.Debug().
+		Where(&core.Village{Id: villageId}).
+		First(&village).Error
+	if err != nil {
+		return err
+	}
+	village.Population = newPopulation
+	return r.DB.Debug().Save(&village).Error
+}
