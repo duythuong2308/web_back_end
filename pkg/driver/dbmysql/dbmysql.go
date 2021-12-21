@@ -17,6 +17,14 @@ func (r Repo) ReadProvince(provinceId string) (core.Province, error) {
 	return ret, err
 }
 
+func (r Repo) UpsertProvince(province core.Province) error {
+	return r.DB.Debug().Save(&province).Error
+}
+
+func (r Repo) DeleteProvince(provinceId string) (error) {
+	return r.DB.Delete(&core.Province{}, provinceId).Error
+}
+
 func (r Repo) ReadDistrict(districtId string) (core.District, error) {
 	var ret core.District
 	err := r.DB.Debug() .
@@ -37,9 +45,6 @@ func (r Repo) ReadCommnue(communeId string) (core.Commune, error) {
 	return ret, err
 }
 
-func (r Repo) UpsertProvince(province core.Province) error {
-	return r.DB.Debug().Save(&province).Error
-}
 
 
 func (r Repo) UpsertVillage(villageId string, newPopulation int) error {

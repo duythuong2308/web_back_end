@@ -124,6 +124,13 @@ func TestRepo_UpsertProvince2(t *testing.T) {
 	//repo0.UpsertProvince(read)
 }
 
+func TestRepo_DeleteProvince(t *testing.T) {
+	err := repo0.DeleteProvince("01")
+	if err != nil {
+		t.Errorf("error: %v", err)
+	}
+}
+
 func TestRepo_UpsertDistrict (t *testing.T) {
 
 			err := repo0.UpsertDistrict(core.District{"1010", "10", nil, "Huyện abc" })
