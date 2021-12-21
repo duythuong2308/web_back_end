@@ -33,7 +33,7 @@ func TestMain(m *testing.M) {
 
 func TestRepo_UpsertProvince(t *testing.T) {
 	s := `1  An Giang
-	2  Bà Rịa - Vũng Tàu
+	2  Bà rịa - Vũng tàu
 	3  Bắc Giang
 	4  Bắc Kạn
 	5  Bạc Liêu
@@ -471,4 +471,11 @@ func TestRepo_ReadCommune(t *testing.T) {
 
 func UpdatePopulation( )  {
 
+}
+func TestRepo_UpsertVillage(t *testing.T) {
+	err := repo0.UpsertVillage("01010101", 123)
+	if err != nil {
+		t.Fatalf("error UpsertVillage: %v", err)
+	}
+	t.Logf("ok UpsertVillage")
 }

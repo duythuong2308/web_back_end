@@ -37,10 +37,14 @@ func (r Repo) UpsertProvince(province core.Province) error {
 	return r.DB.Debug().Save(&province).Error
 }
 
-func (r Repo) UpsertDistrict(district core.District) error {
-	return r.DB.Debug().Save(&district).Error
-}
-
-func (r Repo) UpsertCommune(commune core.Commune) error {
-	return r.DB.Debug().Save(&commune).Error
+func (r Repo) UpsertVillage(villageId string, newPopulation int) error {
+	var village core.Village
+	err := r.DB.Debug().
+		Where(&core.Village{Id: villageId}).
+		First(&village).Error
+	if err != nil {
+		return err
+	}
+	village.Population = newPopulation
+	return r.DB.Debug().Save(&village).Error
 }
