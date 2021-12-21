@@ -13,16 +13,16 @@ type District struct {
 }
 
 type Commune struct {
-	Id         string 		`gorm:"primary_key;type:varchar(191)"`
+	Id         string `gorm:"primary_key;type:varchar(191)"`
 	DistrictId string
-	District	*District	`gorm:"constraint:fk_districts_provinceid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Name       string 		`gorm:"type:varchar(191)"`
+	District   *District `gorm:"constraint:fk_districts_provinceid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Name       string    `gorm:"type:varchar(191)"`
 }
 
 type Village struct {
-	Id         string 		`gorm:"primary_key;type:varchar(191)"`
+	Id         string `gorm:"primary_key;type:varchar(191)"`
 	CommuneId  string
-	Commune		*Commune	`gorm:"constraint:fk_districts_provinceid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Name       string 		`gorm:"type:varchar(191)"`
+	Commune    *Commune `gorm:"constraint:fk_districts_provinceid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Name       string   `gorm:"type:varchar(191)"`
 	Population int
 }
