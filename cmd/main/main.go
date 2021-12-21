@@ -4,6 +4,14 @@ import (
 	"fmt"
 )
 
+func Cong (x, y int) int {
+	return x +y
+}
+
+
+
 func main() {
-	fmt.Println("hello 1")
+	sum := Cong(1,2)
+	fmt.Println(sum)
+
 }
