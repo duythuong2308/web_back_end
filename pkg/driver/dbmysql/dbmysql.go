@@ -63,6 +63,14 @@ func (r Repo) ReadCommnue(communeId string) (core.Commune, error) {
 	return ret, err
 }
 
+func (r Repo) ReadCommunes(districtId string) ([]core.Commune, error) {
+	var ret []core.Commune
+	err := r.DB.Debug().
+		Where(core.Commune{DistrictId: districtId}).
+		Find(&ret).Error
+	return ret, err
+}
+
 func (r Repo) DeleteCommune(communeId string) error {
 	return r.DB.Delete(&core.Commune{}, communeId).Error
 }

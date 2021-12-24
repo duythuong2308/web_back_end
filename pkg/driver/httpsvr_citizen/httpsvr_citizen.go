@@ -20,6 +20,7 @@ func NewServer(database *dbmysql.Repo) *Server {
 	s.AddHandler("GET", "/hello", s.getHello)
 	s.AddHandler("GET", "/province", s.getProvinces)
 	s.AddHandler("GET", "/district", s.getDistricts)
+	s.AddHandler("GET", "/commune", s.getCommunes)
 	return s
 }
 
@@ -53,4 +54,15 @@ func (s Server) getDistricts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.WriteJson(w, r, Response{Data: districts})
+}
+
+func (s Server) getCommunes(w http.ResponseWriter, r *http.Request) {
+	districtId := r.FormValue("districtId")
+	communes, err := s.Database.ReadCommunes(districtId)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+		return
+	}
+	s.WriteJson(w, r, Response{Data: communes})
 }
