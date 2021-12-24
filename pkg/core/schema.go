@@ -17,6 +17,8 @@ type Commune struct {
 	DistrictId string
 	District   *District `gorm:"constraint:fk_communes_districtid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Name       string    `gorm:"type:varchar(191)"`
+	Population int
+	IsCompleted	bool
 }
 
 type Village struct {

@@ -23,6 +23,8 @@ func NewServer(database *dbmysql.Repo) *Server {
 	s.AddHandler("GET", "/district", s.getDistricts)
 	s.AddHandler("GET", "/commune", s.getCommunes)
 	s.AddHandler("POST", "/village", s.postVillage)
+	//s.AddHandler("DELETE", "/village", s.deleteVillage)
+
 	return s
 }
 
@@ -83,3 +85,17 @@ func (s Server) postVillage(w http.ResponseWriter, r *http.Request) {
 	}
 	s.WriteJson(w, r, Response{Data: village})
 }
+
+/* func (s Server) deleteVillage(w http.ResponseWriter, r *http.Request) {
+	var village core.Village
+	err := s.ReadJson(r, &village)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	err = s.Database.DeleteVillage(village)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+} */
