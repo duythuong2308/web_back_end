@@ -1,5 +1,7 @@
 package core
 
+import "time"
+
 type Province struct {
 	Id   string `gorm:"primary_key;type:varchar(191)"`
 	Name string `gorm:"type:varchar(191)"`
@@ -28,6 +30,24 @@ type Village struct {
 	Name       string   `gorm:"type:varchar(191)"`
 	Population int
 }
+
+type User struct {
+	Username		string
+	Password		string
+	Role 			Role
+	BeginDeclare	time.Time
+	EndDeclare		time.Time
+}
+
+type Role string
+
+const (
+	RoleA1 Role = "A1"
+	RoleA2 Role = "A2"
+	RoleA3 Role = "A3"
+	RoleB1 Role = "B1"
+	RoleB2 Role = "B2"
+)
 
 type Citizen struct {
 	Id 					string	`gorm:"type:varchar(191)"`
