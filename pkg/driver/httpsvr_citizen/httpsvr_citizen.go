@@ -22,6 +22,8 @@ func NewServer(database *dbmysql.Repo) *Server {
 	s.AddHandler("GET", "/province", s.getProvinces)
 	s.AddHandler("GET", "/district", s.getDistricts)
 	s.AddHandler("GET", "/commune", s.getCommunes)
+	s.AddHandler("GET", "/village", s.getVillages)
+	s.AddHandler("GET", "/village/:id", s.getVillage)
 	s.AddHandler("POST", "/village", s.postVillage)
 	//s.AddHandler("DELETE", "/village", s.deleteVillage)
 
@@ -69,6 +71,28 @@ func (s Server) getCommunes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.WriteJson(w, r, Response{Data: communes})
+}
+
+func (s Server) getVillage(w http.ResponseWriter, r *http.Request) {
+	villageId := httpsvr.GetUrlParams(r)["id"]
+	village, err := s.Database.ReadVillage(villageId)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+		return
+	}
+	s.WriteJson(w, r, Response{Data: village})
+}
+
+func (s Server) getVillages(w http.ResponseWriter, r *http.Request) {
+	communeId := r.FormValue("communeId")
+	villages, err := s.Database.ReadVillages(communeId)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+		return
+	}
+	s.WriteJson(w, r, Response{Data: villages})
 }
 
 func (s Server) postVillage(w http.ResponseWriter, r *http.Request) {

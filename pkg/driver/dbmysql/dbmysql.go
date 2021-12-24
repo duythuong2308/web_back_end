@@ -84,6 +84,12 @@ func (r Repo) UpsertVillage(village core.Village) error {
 	return r.DB.Debug().Save(&village).Error
 }
 
+func (r Repo) ReadVillages(communeId string) ([]core.Village, error) {
+	var rows []core.Village
+	err := r.DB.Where(core.Village{CommuneId: communeId}).Find(&rows).Error
+	return rows, err
+}
+
 func (r Repo) ReadVillage(villageId string) (core.Village, error) {
 	var ret core.Village
 	err := r.DB.Debug().
