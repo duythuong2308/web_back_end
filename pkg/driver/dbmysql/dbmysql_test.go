@@ -50,7 +50,7 @@ func TestRepo_ReadProvince(t *testing.T) {
 	//repo0.UpsertProvince(read)
 }
 
-func TestRepo_DeleteProvince(t *testing.T) {
+func _TestRepo_DeleteProvince(t *testing.T) {
 	err := repo0.DeleteProvince("01")
 	if err != nil {
 		t.Errorf("error: %v", err)
@@ -59,7 +59,7 @@ func TestRepo_DeleteProvince(t *testing.T) {
 
 func TestRepo_UpsertDistrict(t *testing.T) {
 	err := repo0.UpsertDistrict(core.District{
-		Id: "1010", ProvinceId: "10", Name: "Huyện abc"})
+		Id: "0101", ProvinceId: "01", Name: "huyện abc"})
 	if err != nil {
 		t.Errorf("error District: %v", err)
 	}
@@ -74,7 +74,7 @@ func TestRepo_ReadDistrict(t *testing.T) {
 
 }
 
-func TestRepo_DeleteDistrict(t *testing.T) {
+func _TestRepo_DeleteDistrict(t *testing.T) {
 	err := repo0.DeleteDistrict("0101")
 	if err != nil {
 		t.Errorf("error: %v", err)
@@ -83,7 +83,7 @@ func TestRepo_DeleteDistrict(t *testing.T) {
 
 func TestRepo_UpsertCommune(t *testing.T) {
 	err := repo0.UpsertCommune(core.Commune{
-		Id: "101010", DistrictId: "1010", Name: "Huyện abc"})
+		Id: "101010", DistrictId: "1010", Name: "xã abc"})
 	if err != nil {
 		t.Errorf("error District: %v", err)
 	}
@@ -98,17 +98,16 @@ func TestRepo_ReadCommnue(t *testing.T) {
 
 }
 
-func TestRepo_DeleteCommune(t *testing.T) {
-	err := repo0.DeleteCommue("101010")
-	if err != nil {
-		t.Errorf("error: %v", err)
-	}
-}
-
+//func TestRepo_DeleteCommune(t *testing.T) {
+//	err := repo0.DeleteCommue("101010")
+//	if err != nil {
+//		t.Errorf("error: %v", err)
+//	}
+//}
 
 func TestRepo_UpsertVillage(t *testing.T) {
 	err := repo0.UpsertVillage(core.Village{
-		Id: "01010101", CommuneId: "101010", Population: 123})
+		Id: "01010101", CommuneId: "101010", Population: 123, Name: "thôn 01010101"})
 	if err != nil {
 		t.Fatalf("error UpsertVillage: %v", err)
 	}
@@ -120,15 +119,12 @@ func TestRepo_ReadVillage(t *testing.T) {
 	if err != nil {
 		t.Errorf("error ReadVillage: %v", err)
 	}
-	t.Logf("read: %v", read)
-
+	t.Logf("read: %+v", read)
 }
 
-func TestRepo_DeleteVillage(t *testing.T) {
+func _TestRepo_DeleteVillage(t *testing.T) {
 	err := repo0.DeleteVillage("01010101")
 	if err != nil {
 		t.Errorf("error: %v", err)
 	}
 }
-
-

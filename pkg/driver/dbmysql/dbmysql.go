@@ -3,6 +3,7 @@ package dbmysql
 import (
 	"github.com/duythuong2308/web_back_end/pkg/core"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type Repo struct {
@@ -86,7 +87,10 @@ func (r Repo) UpsertVillage(village core.Village) error {
 func (r Repo) ReadVillage(villageId string) (core.Village, error) {
 	var ret core.Village
 	err := r.DB.Debug().
+		Model(&core.Village{}).
+		Joins("JOIN communes ON villages.commune_id = communes.id").
 		Where(core.Village{Id: villageId}).
+		Preload(clause.Associations).
 		First(&ret).Error
 	return ret, err
 }
