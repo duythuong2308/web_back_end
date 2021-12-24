@@ -3,6 +3,7 @@ package httpsvr_citizen
 import (
 	"net/http"
 
+	"github.com/duythuong2308/web_back_end/pkg/core"
 	"github.com/duythuong2308/web_back_end/pkg/driver/dbmysql"
 	"github.com/mywrap/httpsvr"
 )
@@ -21,6 +22,7 @@ func NewServer(database *dbmysql.Repo) *Server {
 	s.AddHandler("GET", "/province", s.getProvinces)
 	s.AddHandler("GET", "/district", s.getDistricts)
 	s.AddHandler("GET", "/commune", s.getCommunes)
+	s.AddHandler("POST", "/village", s.postVillage)
 	return s
 }
 
@@ -65,4 +67,19 @@ func (s Server) getCommunes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.WriteJson(w, r, Response{Data: communes})
+}
+
+func (s Server) postVillage(w http.ResponseWriter, r *http.Request) {
+	var village core.Village
+	err := s.ReadJson(r, &village)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	err = s.Database.UpsertVillage(village)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	s.WriteJson(w, r, Response{Data: village})
 }
