@@ -65,6 +65,22 @@ func TestRepo_UpsertDistrict(t *testing.T) {
 	}
 }
 
+func TestRepo_ReadDistrict(t *testing.T) {
+	read, err := repo0.ReadDistrict("0101")
+	if err != nil {
+		t.Errorf("error ReadDistrict: %v", err)
+	}
+	t.Logf("read: %v", read)
+
+}
+
+func TestRepo_DeleteDistrict(t *testing.T) {
+	err := repo0.DeleteDistrict("0101")
+	if err != nil {
+		t.Errorf("error: %v", err)
+	}
+}
+
 func TestRepo_UpsertCommune(t *testing.T) {
 	err := repo0.UpsertCommune(core.Commune{
 		Id: "101010", DistrictId: "1010", Name: "Huyện abc"})
@@ -72,6 +88,23 @@ func TestRepo_UpsertCommune(t *testing.T) {
 		t.Errorf("error District: %v", err)
 	}
 }
+
+func TestRepo_ReadCommnue(t *testing.T) {
+	read, err := repo0.ReadCommnue("101010")
+	if err != nil {
+		t.Errorf("error ReadCommune: %v", err)
+	}
+	t.Logf("read: %v", read)
+
+}
+
+func TestRepo_DeleteCommune(t *testing.T) {
+	err := repo0.DeleteCommue("101010")
+	if err != nil {
+		t.Errorf("error: %v", err)
+	}
+}
+
 
 func TestRepo_UpsertVillage(t *testing.T) {
 	err := repo0.UpsertVillage(core.Village{
@@ -81,3 +114,21 @@ func TestRepo_UpsertVillage(t *testing.T) {
 	}
 	t.Logf("ok UpsertVillage")
 }
+
+func TestRepo_ReadVillage(t *testing.T) {
+	read, err := repo0.ReadVillage("01010101")
+	if err != nil {
+		t.Errorf("error ReadVillage: %v", err)
+	}
+	t.Logf("read: %v", read)
+
+}
+
+func TestRepo_DeleteVillage(t *testing.T) {
+	err := repo0.DeleteVillage("01010101")
+	if err != nil {
+		t.Errorf("error: %v", err)
+	}
+}
+
+

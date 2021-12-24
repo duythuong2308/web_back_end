@@ -37,12 +37,20 @@ func (r Repo) UpsertDistrict(district core.District) error {
 	return r.DB.Debug().Save(&district).Error
 }
 
+func (r Repo) DeleteDistrict(districtId string) error {
+	return r.DB.Delete(&core.District{}, districtId).Error
+}
+
 func (r Repo) ReadCommnue(communeId string) (core.Commune, error) {
 	var ret core.Commune
 	err := r.DB.Debug().
 		Where(core.Commune{Id: communeId}).
 		First(&ret).Error
 	return ret, err
+}
+
+func (r Repo) DeleteCommune(communeId string) error {
+	return r.DB.Delete(&core.Commune{}, communeId).Error
 }
 
 func (r Repo) UpsertCommune(commune core.Commune) error {
@@ -52,3 +60,17 @@ func (r Repo) UpsertCommune(commune core.Commune) error {
 func (r Repo) UpsertVillage(village core.Village) error {
 	return r.DB.Debug().Save(&village).Error
 }
+
+func (r Repo) ReadVillage(villageId string) (core.Commune, error) {
+	var ret core.Village
+	err := r.DB.Debug().
+		Where(core.Village{Id: villageId}).
+		First(&ret).Error
+	return ret, err
+}
+
+func (r Repo) DeleteVillage(villageId string) error {
+	return r.DB.Delete(&core.Village{}, villageId).Error
+}
+
+
