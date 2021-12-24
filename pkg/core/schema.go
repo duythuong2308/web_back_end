@@ -15,12 +15,12 @@ type District struct {
 }
 
 type Commune struct {
-	Id         string `gorm:"primary_key;type:varchar(191)"`
-	DistrictId string
-	District   *District `gorm:"constraint:fk_communes_districtid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Name       string    `gorm:"type:varchar(191)"`
-	Population int
-	IsCompleted	bool
+	Id          string `gorm:"primary_key;type:varchar(191)"`
+	DistrictId  string
+	District    *District `gorm:"constraint:fk_communes_districtid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Name        string    `gorm:"type:varchar(191)"`
+	Population  int
+	IsCompleted bool
 }
 
 type Village struct {
@@ -32,11 +32,11 @@ type Village struct {
 }
 
 type User struct {
-	Username		string
-	Password		string
-	Role 			Role
-	BeginDeclare	time.Time
-	EndDeclare		time.Time
+	Username     string
+	Password     string
+	Role         Role
+	BeginDeclare time.Time
+	EndDeclare   time.Time
 }
 
 type Role string
@@ -50,16 +50,16 @@ const (
 )
 
 type Citizen struct {
-	Id 					string	`gorm:"type:varchar(191)"`
-	VillageId			string
-	Village				*Village `gorm:"constraint:fk_citizen_villageid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Name 				string	`gorm:"type:varchar(191)"`
-	DateOfBirth 		string	`gorm:"type:varchar(191)"`
-	Gender				string	`gorm:"type:varchar(191)"`
-	PlaceOfBirth		string	`gorm:"type:varchar(191)"`
-	PernamentAddress	string	`gorm:"type:varchar(1023)"`
-	TemporaryAddress	string	`gorm:"type:varchar(1023)"`
-	Religion			string	`gorm:"type:varchar(191)"`
-	EducationLevel		string	`gorm:"type:varchar(191)"`
-	Job					string	`gorm:"type:varchar(191)"`
+	Id               string `gorm:"type:varchar(191)"`
+	VillageId        string
+	Village          *Village `gorm:"constraint:fk_citizen_villageid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Name             string   `gorm:"type:varchar(191)"`
+	DateOfBirth      string   `gorm:"type:varchar(191)"`
+	Gender           string   `gorm:"type:varchar(191)"`
+	PlaceOfBirth     string   `gorm:"type:varchar(191)"`
+	PernamentAddress string   `gorm:"type:varchar(1023)"`
+	TemporaryAddress string   `gorm:"type:varchar(1023)"`
+	Religion         string   `gorm:"type:varchar(191)"`
+	EducationLevel   string   `gorm:"type:varchar(191)"`
+	Job              string   `gorm:"type:varchar(191)"`
 }

@@ -19,20 +19,18 @@ func NewServer(database *dbmysql.Repo) *Server {
 		Database: database,
 	}
 	s.AddHandler("GET", "/hello", s.getHello)
-
 	s.AddHandler("GET", "/province", s.getProvinces)
-	s.AddHandler("POST", "/province", s.postProvinces)
-
 	s.AddHandler("GET", "/district", s.getDistricts)
-	s.AddHandler("POST", "/district", s.postDistricts)
-
 	s.AddHandler("GET", "/commune", s.getCommunes)
-	s.AddHandler("POST", "/commune", s.postCommunes)
-
+<<<<<<< HEAD
 	s.AddHandler("GET", "/village", s.getVillages)
 	s.AddHandler("GET", "/village/:id", s.getVillage)
+=======
+	s.AddHandler("POST", "/province", s.postProvinces)
+	s.AddHandler("POST", "/district", s.postDistricts)
+	s.AddHandler("POST", "/commune", s.postCommunes)
+>>>>>>> 9ebe46455baadb90f34be7498b7acefd7aa99476
 	s.AddHandler("POST", "/village", s.postVillage)
-	//s.AddHandler("DELETE", "/village", s.deleteVillage)
 
 	return s
 }
@@ -65,7 +63,7 @@ func (s Server) postProvinces(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
-	err = s.Database.UpsertProvince(province)
+	err = s.Database.UpsertCommune(province)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
@@ -110,21 +108,7 @@ func (s Server) getCommunes(w http.ResponseWriter, r *http.Request) {
 	s.WriteJson(w, r, Response{Data: communes})
 }
 
-func (s Server) postCommunes(w http.ResponseWriter, r *http.Request) {
-	var commune core.Commune
-	err := s.ReadJson(r, &commune)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		s.WriteJson(w, r, Response{Error: err.Error()})
-	}
-	err = s.Database.UpsertCommune(commune)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		s.WriteJson(w, r, Response{Error: err.Error()})
-	}
-	s.WriteJson(w, r, Response{Data: commune})
-}
-
+<<<<<<< HEAD
 func (s Server) getVillage(w http.ResponseWriter, r *http.Request) {
 	villageId := httpsvr.GetUrlParams(r)["id"]
 	village, err := s.Database.ReadVillage(villageId)
@@ -150,6 +134,26 @@ func (s Server) getVillages(w http.ResponseWriter, r *http.Request) {
 func (s Server) postVillage(w http.ResponseWriter, r *http.Request) {
 	var village core.Village
 	err := s.ReadJson(r, &village)
+=======
+func (s Server) postCommunes(w http.ResponseWriter, r *http.Request) {
+	var commune core.Commune
+	err := s.ReadJson(r, &commune)
+>>>>>>> 9ebe46455baadb90f34be7498b7acefd7aa99476
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	err = s.Database.UpsertCommune(commune)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	s.WriteJson(w, r, Response{Data: commune})
+}
+
+func (s Server) postVillage(w http.ResponseWriter, r *http.Request) {
+	var village core.Village
+	err := s.ReadJson(r, &village)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
@@ -159,19 +163,9 @@ func (s Server) postVillage(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
+<<<<<<< HEAD
+} */
+=======
 	s.WriteJson(w, r, Response{Data: village})
 }
-
-/* func (s Server) deleteVillage(w http.ResponseWriter, r *http.Request) {
-	var village core.Village
-	err := s.ReadJson(r, &village)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		s.WriteJson(w, r, Response{Error: err.Error()})
-	}
-	err = s.Database.DeleteVillage(village)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		s.WriteJson(w, r, Response{Error: err.Error()})
-	}
-} */
+>>>>>>> 9ebe46455baadb90f34be7498b7acefd7aa99476
