@@ -18,21 +18,21 @@ func NewServer(database *dbmysql.Repo) *Server {
 		Server:   httpsvr.NewServer(),
 		Database: database,
 	}
-	s.AddHandler("GET", "/hello", s.getHello)
+	s.AddHandler("GET", "/api/hello", s.getHello)
 
-	s.AddHandler("GET", "/province", s.getProvinces)
-	s.AddHandler("POST", "/province", s.postProvinces)
+	s.AddHandler("GET", "/api/province", s.getProvinces)
+	s.AddHandler("POST", "/api/province", s.postProvinces)
 
-	s.AddHandler("GET", "/district", s.getDistricts)
-	s.AddHandler("POST", "/district", s.postDistricts)
+	s.AddHandler("GET", "/api/district", s.getDistricts)
+	s.AddHandler("POST", "/api/district", s.postDistricts)
 
-	s.AddHandler("GET", "/commune", s.getCommunes)
-	s.AddHandler("POST", "/commune", s.postCommunes)
+	s.AddHandler("GET", "/api/commune", s.getCommunes)
+	s.AddHandler("POST", "/api/commune", s.postCommunes)
 
-	s.AddHandler("GET", "/village", s.getVillages)
-	s.AddHandler("GET", "/village/:id", s.getVillage)
-	s.AddHandler("POST", "/village", s.postVillage)
-	//s.AddHandler("DELETE", "/village", s.deleteVillage)
+	s.AddHandler("GET", "/api/village", s.getVillages)
+	s.AddHandler("GET", "/api/village/:id", s.getVillage)
+	s.AddHandler("POST", "/api/village", s.postVillage)
+	//s.AddHandler("DELETE", "/api/village", s.deleteVillage)
 
 	return s
 }
