@@ -41,4 +41,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("error create table: %v", err)
 	}
+	err = db.AutoMigrate(&core.User{})
+	if err != nil {
+		log.Fatalf("error create table: %v", err)
+	}
 }

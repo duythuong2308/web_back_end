@@ -32,7 +32,7 @@ type Village struct {
 }
 
 type User struct {
-	Username     string
+	Username     string `gorm:"primary_key;type:varchar(191)"`
 	Password     string
 	Role         Role
 	BeginDeclare time.Time
@@ -42,11 +42,11 @@ type User struct {
 type Role string
 
 const (
-	RoleA1 Role = "A1"
-	RoleA2 Role = "A2"
-	RoleA3 Role = "A3"
-	RoleB1 Role = "B1"
-	RoleB2 Role = "B2"
+	RoleA1 Role = "A1" // update provinces
+	RoleA2 Role = "A2" // update districts in a province
+	RoleA3 Role = "A3" // update communes in a district
+	RoleB1 Role = "B1" // update villages in a commune
+	RoleB2 Role = "B2" // add citizen in a village
 )
 
 type Citizen struct {

@@ -104,3 +104,7 @@ func (r Repo) ReadVillage(villageId string) (core.Village, error) {
 func (r Repo) DeleteVillage(villageId string) error {
 	return r.DB.Delete(&core.Village{}, villageId).Error
 }
+
+func (r Repo) UpsertUser(user core.User) error {
+	return r.DB.Save(&user).Error
+}
