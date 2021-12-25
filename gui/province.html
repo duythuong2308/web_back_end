@@ -25,6 +25,25 @@
 
 <br/>
 <div>
+	<label class="add_province">Thêm tỉnh:</label>
+	<input type="text" id="id_new_province" name="id_new_province">
+	<input type="text" id="name_new_province" name="name_new_province">
+	<input type="button" id="add_new_province" value="Xác nhận">
+	<script>
+		document.getElementById("add_new_province").addEventListener("click", function () {
+			let reqBody = {
+			    "Id": document.getElementById("id_new_province").value,
+				"Name":	document.getElementById("name_new_province").value,
+            }
+            console.log("reqBody:",reqBody)
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/province', true);
+            xhr.send(JSON.stringify(reqBody));
+        })
+
+	</script>
+</div>
+<div>
 	<table id="provinces"></table>
 </div>
 
