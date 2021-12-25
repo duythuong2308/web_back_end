@@ -18,31 +18,33 @@ func main() {
 	if err != nil {
 		log.Fatalf("error connect MySQL: %v, config: %#v", err, mysqlConf)
 	}
-	db = db.Debug()
-	if err != nil {
-		log.Fatal(err)
-	}
+	//db = db.Debug()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 
 	// CREATE DATABASE duythuong /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 	err = db.AutoMigrate(&core.Province{})
 	if err != nil {
-		log.Fatalf("error create table: %v", err)
+		log.Printf("error create table: %v", err)
 	}
 	err = db.AutoMigrate(&core.District{})
 	if err != nil {
-		log.Fatalf("error create table: %v", err)
+		log.Printf("error create table: %v", err)
 	}
 	err = db.AutoMigrate(&core.Commune{})
 	if err != nil {
-		log.Fatalf("error create table: %v", err)
+		log.Printf("error create table: %v", err)
 	}
 	err = db.AutoMigrate(&core.Village{})
 	if err != nil {
-		log.Fatalf("error create table: %v", err)
+		log.Printf("error create table: %v", err)
 	}
+	log.Print("hihi")
 	err = db.AutoMigrate(&core.User{})
 	if err != nil {
-		log.Fatalf("error create table: %v", err)
+		log.Printf("error create table: %v", err)
 	}
+	log.Print("done")
 }

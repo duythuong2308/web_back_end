@@ -40,6 +40,26 @@ func main() {
 		if err != nil {
 			log.Printf("error CreateUser: %v", err)
 		}
+
+		districts, err := database.ReadDistricts(province.Id)
+		if err != nil {
+			log.Fatalf("error ReadDistricts: %v", err)
+		}
+
+		for _, district := range districts {
+			err := database.UpsertUser(core.User{
+				Username:     district.Id,
+				Password:     "123qwe",
+				Role:         core.RoleA3,
+				BeginDeclare: time.Unix(0, 0),
+				EndDeclare:   time.Unix(0, 0),
+			})
+			if err != nil {
+				log.Printf("error CreateUser: %v", err)
+			}
+		}
 	}
 	log.Printf("done")
+
+
 }
