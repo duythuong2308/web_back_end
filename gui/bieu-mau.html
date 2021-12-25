@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Định dạng Biểu Mẫu</title>
+	<style>
+		input[type=text], input[type=email], input[typep=password], input[type=number], input[type=date]
+	</style>
+</head>
+<body>
+	<h2>Đăng ký</h2>
+	<!-- 
+	action: URL, nơi xử lý dữ liệu form gửi đến
+	method: phương thức gửi dữ liệu (GET|POST) 
+	enctype: định dạng dữ liệu gửi đi của form
+	-->
+	<form action="" method="" enctype="multipart/form-data">
+		<b>Nhập text</b> <input type="text" name="hoTen" value="" placeholder="Nhập họ tên..."><br>
+		<b>Nhập email</b> <input type="email" name="hoTen" value="" placeholder="Nhập email..."><br>
+		<b>Nhập password</b> <input type="password" name="hoTen" value="" placeholder="Nhập mật khẩu..."><br>
+		<b>Nhập số</b> <input type="number" name="hoTen" value="" placeholder="Nhập tuổi..."><br>
+		<b>Nhập ngày tháng</b> <input type="date" name="hoTen" value="" placeholder="Nhập tuổi..."><br>
+		<b>Nhập file</b> <input type="file" name="hoTen" value="" placeholder="Nhập tuổi..."><br>
+		<b>Chọn màu</b> <input type="color" name="hoTen" value="" placeholder="Nhập tuổi..."><br>
+		<b>Slide</b> <input type="range" name="hoTen" value="" min="0" max="100" step="1"><br>
+		<b>Lựa chọn nhiều</b> 
+		<input type="checkbox" name="hoTen" value=""> Code
+		<input type="checkbox" name="hoTen" value=""> Game
+		<input type="checkbox" name="hoTen" value=""> Music
+		<br>
+		<b>Lựa chọn một</b> 
+		<input type="radio" name="gioiTinh" value=""> Nam
+		<input type="radio" name="gioiTinh" value=""> Nữ
+		<input type="radio" name="gioiTinh" value=""> Khác
+		<br>
+
+		<b>Lựa chọn dropdown</b>
+		<select name="" id="">
+			<option value="1">Lựa chọn 1</option>
+			<option value="2">Lựa chọn 2</option>
+			<option value="3">Lựa chọn 3</option>
+			<option value="4">Lựa chọn 4</option>
+			<option value="5">Lựa chọn 5</option>
+			<option value="6">Lựa chọn 6</option>
+		</select><br>
+		<b>Nhập nhiều dòng</b>
+		<textarea name="" rows="3" cols="30"></textarea><br>
+
+		<button type="submit">Gửi</button>
+		<button type="reset">Làm mới</button>
+		<button type="button">Ko tác động form</button>
+	</form>
+</body>
+</html>
