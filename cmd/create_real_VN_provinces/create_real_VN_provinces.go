@@ -40,6 +40,7 @@ func main() {
 			log.Printf("error UpsertProvince: %v", err)
 		}
 	}
+	wg.Wait()
 
 	for _, d := range districts {
 		d := d
@@ -56,6 +57,8 @@ func main() {
 			}
 		}()
 	}
+	wg.Wait()
+
 	for _, w := range wards {
 		w := w
 		wg.Add(1)
