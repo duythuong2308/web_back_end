@@ -1,11 +1,10 @@
 package httpsvr_citizen
 
 import (
-	"net/http"
-
-	"strings"
-
 	"fmt"
+	"net/http"
+	"strings"
+	"time"
 
 	"github.com/duythuong2308/web_back_end/pkg/core"
 	"github.com/duythuong2308/web_back_end/pkg/driver/dbmysql"
@@ -44,7 +43,7 @@ func NewServer(database *dbmysql.Repo) *Server {
 	s.AddHandler("DELETE", "/api/village", s.deleteVillage)
 
 	s.AddHandler("GET", "/api/citizen", s.getCitizens)
-	s.AddHandler("GET", "/api/citizen", s.getCitizen)
+	s.AddHandler("GET", "/api/citizen/:id", s.getCitizen)
 	s.AddHandler("POST", "/api/citizen", s.postCitizen)
 	s.AddHandler("DELETE", "/api/citizen", s.deleteCitizen)
 
@@ -312,6 +311,14 @@ func (s Server) postVillage(w http.ResponseWriter, r *http.Request) {
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
 	err = s.Database.UpsertVillage(village)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	err = s.Database.UpsertUser(core.User{
+		Username: village.Id, Password: "123qwe", Role: core.RoleB2,
+		BeginDeclare: time.Now(), EndDeclare: time.Now().Add(720 * time.Hour),
+	})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
