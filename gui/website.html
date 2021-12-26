@@ -21,6 +21,7 @@
         }
 
         input[type=text], input[type=date], input[type=email], textarea {
+
             padding: 5px;
             border: 1px solid black;
             width: 300px;
@@ -127,10 +128,8 @@
                 <br>
                 <b>Ngày sinh</b> <input type="date" id="dateofbirth" value="" placeholder="Nhập tuổi...">
                 <br>
-                <b>Giới tính</b> 
-                <input type="radio" id="gender" value=""> Nam
-                <input type="radio" id="gender" value=""> Nữ
-                <input type="radio" id="gender" value=""> Khác
+                <br>
+                <b>Giới tính</b> <input type="text" id="gender" value="" placeholder="Nhập giới tính...">
                 <br>
                 <br>
                 <b>Tôn giáo</b> <input type="text" id="religion" value="" placeholder="Nhập tôn giáo..."><br>
@@ -178,7 +177,7 @@
                         xhr.send(JSON.stringify(reqBody));
                     })
                     document.getElementById("reset").addEventListener("click",function () {
-                        
+                        window.location.reload();
                     })
                 </script>
             </form>

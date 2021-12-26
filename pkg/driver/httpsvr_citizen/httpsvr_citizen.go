@@ -43,6 +43,8 @@ func NewServer(database *dbmysql.Repo) *Server {
 	s.AddHandler("POST", "/api/village", s.postVillage)
 	s.AddHandler("DELETE", "/api/village", s.deleteVillage)
 
+	s.AddHandler("GET", "/api/citizen", s.getCitizens)
+	s.AddHandler("GET", "/api/citizen", s.getCitizen)
 	s.AddHandler("POST", "/api/citizen", s.postCitizen)
 	s.AddHandler("DELETE", "/api/citizen", s.deleteCitizen)
 
@@ -330,6 +332,28 @@ func (s Server) deleteVillage(w http.ResponseWriter, r *http.Request) {
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
 	s.WriteJson(w, r, Response{Data: "deleted village"})
+}
+
+func (s Server) getCitizens(w http.ResponseWriter, r *http.Request) {
+	villageId := r.FormValue("villageId")
+	citizens, err := s.Database.ReadCitizens(villageId)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+		return
+	}
+	s.WriteJson(w, r, Response{Data: citizens})
+}
+
+func (s Server) getCitizen(w http.ResponseWriter, r *http.Request) {
+	citizenId := httpsvr.GetUrlParams(r)["id"]
+	citizen, err := s.Database.ReadCitizen(citizenId)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+		return
+	}
+	s.WriteJson(w, r, Response{Data: citizen})
 }
 
 func (s Server) postCitizen(w http.ResponseWriter, r *http.Request) {

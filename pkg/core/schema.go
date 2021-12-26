@@ -53,7 +53,7 @@ const (
 
 type Citizen struct {
 	Id               	string `gorm:"type:varchar(191)"`
-	VillageId        	string
+	VillageId        	string	`gorm:"type:varchar(191)"`
 	Village          	*Village`gorm:"constraint:fk_citizen_villageid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Name             	string  `gorm:"type:varchar(191)"`
 	DateOfBirth      	string   `gorm:"type:varchar(191)"`

@@ -118,6 +118,25 @@ func (r Repo) UpsertUser(user core.User) error {
 	return r.DB.Save(&user).Error
 }
 
+func (r Repo) ReadCitizens(villageId string) ([]core.Citizen, error) {
+	var rows []core.Citizen
+	err := r.DB.Where(core.Citizen{VillageId: villageId}).Find(&rows).Error
+	return rows, err
+}
+
+func (r Repo) ReadCitizen(citizenId string) (core.Citizen, error) {
+	var ret core.Citizen
+	err := r.DB.Debug().
+		Model(&core.Citizen{}).
+		Where(core.Citizen{Id: citizenId}).
+		Preload("Village").
+		Preload("Village.Commune").
+		Preload("Village.Commune.District").
+		Preload("Village.Commune.District.Province").
+		First(&ret).Error
+	return ret, err
+}
+
 func (r Repo) UpsertCitizen(citizen core.Citizen) error {
 	return r.DB.Debug().Save(&citizen).Error
 }

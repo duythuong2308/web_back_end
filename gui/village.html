@@ -37,12 +37,13 @@
                 "Id": document.getElementById("id_new_village").value,
                 "CommuneId": document.getElementById("communeid_new_village").value,
                 "Name":	document.getElementById("name_new_village").value,
-                 "Population": document.getElementById("population_new_village").value,
+                "Population": document.getElementById("population_new_village").value,
             }
             console.log("reqBody:",reqBody)
             var xhr = new XMLHttpRequest();
             xhr.open("POST", '/api/village', true);
             xhr.send(JSON.stringify(reqBody));
+            window.location.reload();
         })
 
     </script>

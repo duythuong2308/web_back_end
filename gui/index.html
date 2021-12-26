@@ -29,7 +29,7 @@
                         <input type="checkbox"/>Remember Me
                     </label><a class="form-recovery" href="#">Forgot Password?</a>
                 </div>
-            <input id="loginResponse" disabled="disabled" size="100">
+            <input id="loginResponse" disabled="disabled" size="62">
                 <div class="form-group">
                     <button id="login">Đăng nhập</button>
                 </div>
@@ -67,7 +67,6 @@
                 } else if (resp["User"]["Role"] === "B1") {
                     window.location.href =`/gui/website.html`
                 }
-
             }
         };
         xhr.open("POST", '/api/login', true);

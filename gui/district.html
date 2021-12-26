@@ -41,6 +41,8 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", '/api/district', true);
             xhr.send(JSON.stringify(reqBody));
+            window.location.reload();
+
         })
 
     </script>
