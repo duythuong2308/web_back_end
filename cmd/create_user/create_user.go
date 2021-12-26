@@ -57,6 +57,42 @@ func main() {
 			if err != nil {
 				log.Printf("error CreateUser: %v", err)
 			}
+
+			communes, err := database.ReadCommunes(province.Id)
+			if err != nil {
+				log.Fatalf("error ReadCommunes: %v", err)
+			}
+
+			for _, commune := range communes {
+				err := database.UpsertUser(core.User{
+					Username:     commune.Id,
+					Password:     "123qwe",
+					Role:         core.RoleB1,
+					BeginDeclare: time.Unix(0, 0),
+					EndDeclare:   time.Unix(0, 0),
+				})
+				if err != nil {
+					log.Printf("error CreateUser: %v", err)
+				}
+
+				villages, err := database.ReadVillages(province.Id)
+				if err != nil {
+					log.Fatalf("error ReadVillages: %v", err)
+				}
+
+				for _, village := range villages {
+					err := database.UpsertUser(core.User{
+						Username:     village.Id,
+						Password:     "123qwe",
+						Role:         core.RoleB2,
+						BeginDeclare: time.Unix(0, 0),
+						EndDeclare:   time.Unix(0, 0),
+					})
+					if err != nil {
+						log.Printf("error CreateUser: %v", err)
+					}
+				}
+			}
 		}
 	}
 	log.Printf("done")

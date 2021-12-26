@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>Thôn/Bản/Tổ dân phố</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="share.js"></script>
+    <script type="text/javascript" src="village.js"></script>
+    <style type="text/css">
+        table, tr, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            /*min-width: 15vw;*/
+            max-width: 22vw;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+
+<body>
+<h1 style="text-align: center">Danh sách các thôn/bản/tổ dân phố</h1>
+
+<br/>
+<div>
+    <label class="add_village">Thêm thôn/bản/tổ dân phố:</label>
+    <label class="new_village_id">ID:</label><input type="text" id="id_new_village" name="id_new_village">
+    <label class="new_village_communeid">ID xã/phường:</label><input type="text" id="communeid_new_village" name="communeid_new_village">
+    <label class="new_village_name">Tên thôn/bản/tổ dân phố:</label><input type="text" id="name_new_village" name="name_new_village">
+    <label class="new_village_population">Dân số:</label><input type="text" id="population_new_village" name="population_new_village">
+    <input type="button" id="add_new_village" value="Xác nhận">
+    <script>
+        document.getElementById("add_new_village").addEventListener("click", function () {
+            let reqBody = {
+                "Id": document.getElementById("id_new_village").value,
+                "CommuneId": document.getElementById("communeid_new_village").value,
+                "Name":	document.getElementById("name_new_village").value,
+                 "Population": document.getElementById("population_new_village").value,
+            }
+            console.log("reqBody:",reqBody)
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/village', true);
+            xhr.send(JSON.stringify(reqBody));
+        })
+
+    </script>
+
+</div>
+<br>
+<div>
+    <table id="villages"></table>
+</div>
+
+</body>
+
+
+</html>

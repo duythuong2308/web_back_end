@@ -9,6 +9,7 @@ function loadArrayToTable(tableElem, array) {
 
 	let tbody = document.createElement("tbody");
 	let tr = document.createElement("tr");
+
 	for (let col = 0; col < keys.length; col ++) {
 		let bold = document.createElement("strong");
 		bold.appendChild(document.createTextNode(keys[col]));
@@ -27,10 +28,30 @@ function loadArrayToTable(tableElem, array) {
 				tr.appendChild(td);
 				continue
 			}
-			td.appendChild(document.createTextNode(value));
+			if (keys[col] === "Id") {
+				let a = document.createElement('a');
+				a.appendChild(document.createTextNode(value));
+				a.href = `/gui/district.html?provinceId=${value}`;
+                td.appendChild(a);
+			} else {
+                td.appendChild(document.createTextNode(value));
+            }
 			tr.appendChild(td)
 		}
-		tbody.appendChild(tr);
+        let td = document.createElement("td");
+        var x = document.createElement("BUTTON");
+        x.id = `deleteProvince${array[row]["Id"]}`;
+		var t = document.createTextNode("Xóa");
+		x.appendChild(t);
+		td.appendChild(x);
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+
+        x.addEventListener("click",function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("DELETE", '/api/province', true);
+            xhr.send(JSON.stringify({"Id": array[row]["Id"]}));
+        })
 	}
 
 	tableElem.innerHTML = "";

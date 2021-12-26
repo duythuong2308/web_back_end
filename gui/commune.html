@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>Xã/Phường</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="share.js"></script>
+    <script type="text/javascript" src="commune.js"></script>
+    <style type="text/css">
+        table, tr, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            /*min-width: 15vw;*/
+            max-width: 22vw;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+
+<body>
+<h1 style="text-align: center">Danh sách các xã/phường</h1>
+
+<br/>
+<div>
+    <label class="add_commune">Thêm xã:</label>
+    <label class="new_commune_id">ID:</label><input type="text" id="id_new_commune" name="id_new_comune">
+    <label class="new_commune_districtid">ID quận/huyện:</label><input type="text" id="districtid_new_commune" name="districtid_new_commune">
+    <label class="new_commune_name">Tên xã/phường:</label><input type="text" id="name_new_commune" name="name_new_commune">
+    <!--<label class="new_commune_population">Dân số:</label><input type="text" id="population_new_commune" name="population_new_commune">-->
+    <input type="button" id="add_new_commune" value="Xác nhận">
+    <script>
+        document.getElementById("add_new_commune").addEventListener("click", function () {
+            let reqBody = {
+                "Id": document.getElementById("id_new_commune").value,
+                "DistrictId": document.getElementById("districtid_new_commune").value,
+                "Name":	document.getElementById("name_new_commune").value,
+                <!--"Population": document.getElementById("population_new_commune").value,-->
+            }
+            console.log("reqBody:",reqBody)
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/commune', true);
+            xhr.send(JSON.stringify(reqBody));
+        })
+
+    </script>
+
+</div>
+<br>
+<div>
+    <table id="communes"></table>
+</div>
+
+</body>
+
+
+</html>

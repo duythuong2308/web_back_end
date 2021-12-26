@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>Quận/Huyện</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="share.js"></script>
+    <script type="text/javascript" src="district.js"></script>
+    <style type="text/css">
+        table, tr, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            /*min-width: 15vw;*/
+            max-width: 22vw;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+
+<body>
+<h1 style="text-align: center">Danh sách các quận/huyện</h1>
+
+<br/>
+<div>
+    <label class="add_district">Thêm huyện:</label>
+    <label class="new_district_id">ID:</label><input type="text" id="id_new_district" name="id_new_district">
+    <label class="new_district_provinceid">ID tỉnh:</label><input type="text" id="provinceid_new_district" name="provinceid_new_district">
+    <label class="new_district_name">Tên huyện:</label><input type="text" id="name_new_district" name="name_new_district">
+    <input type="button" id="add_new_district" value="Xác nhận">
+    <script>
+        document.getElementById("add_new_district").addEventListener("click", function () {
+            let reqBody = {
+                "Id": document.getElementById("id_new_district").value,
+                "ProvinceId": document.getElementById("provinceid_new_district").value,
+                "Name":	document.getElementById("name_new_district").value,
+            }
+            console.log("reqBody:",reqBody)
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/district', true);
+            xhr.send(JSON.stringify(reqBody));
+        })
+
+    </script>
+</div>
+<div>
+    <table id="districts"></table>
+</div>
+
+</body>
+
+
+</html>
