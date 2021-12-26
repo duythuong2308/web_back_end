@@ -9,14 +9,14 @@ type Province struct {
 
 type District struct {
 	Id         string    `gorm:"primary_key;type:varchar(191)"`
-	ProvinceId string    // this field name follows gorm foreign key convention
+	ProvinceId string    `gorm:"type:varchar(191)"` // this field name follows gorm foreign key convention
 	Province   *Province `gorm:"constraint:fk_districts_provinceid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Name       string    `gorm:"type:varchar(191)"`
 }
 
 type Commune struct {
-	Id          string `gorm:"primary_key;type:varchar(191)"`
-	DistrictId  string
+	Id          string    `gorm:"primary_key;type:varchar(191)"`
+	DistrictId  string    `gorm:"type:varchar(191)"`
 	District    *District `gorm:"constraint:fk_communes_districtid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Name        string    `gorm:"type:varchar(191)"`
 	Population  int
@@ -24,8 +24,8 @@ type Commune struct {
 }
 
 type Village struct {
-	Id         string `gorm:"primary_key;type:varchar(191)"`
-	CommuneId  string
+	Id         string   `gorm:"primary_key;type:varchar(191)"`
+	CommuneId  string   `gorm:"type:varchar(191)"`
 	Commune    *Commune `gorm:"constraint:fk_villages_communeid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Name       string   `gorm:"type:varchar(191)"`
 	Population int
@@ -33,8 +33,8 @@ type Village struct {
 
 type User struct {
 	Username     string `gorm:"primary_key;type:varchar(191)"`
-	Password     string
-	Role         Role
+	Password     string `gorm:"type:varchar(191)" json:"-"`
+	Role         Role   `gorm:"type:varchar(191)"`
 	BeginDeclare time.Time
 	EndDeclare   time.Time
 }
@@ -42,11 +42,11 @@ type User struct {
 type Role string
 
 const (
-	RoleA1 Role = "A1" // update provinces
-	RoleA2 Role = "A2" // update districts in a province
-	RoleA3 Role = "A3" // update communes in a district
-	RoleB1 Role = "B1" // update villages in a commune
-	RoleB2 Role = "B2" // add citizen in a village
+	RoleA1 Role = "A1" // admin, update provinces
+	RoleA2 Role = "A2" // update districts in a province, Id len 2
+	RoleA3 Role = "A3" // update communes in a district, Id len 4
+	RoleB1 Role = "B1" // update villages in a commune, Id len 6
+	RoleB2 Role = "B2" // add citizen in a village, Id len 8
 )
 
 type Citizen struct {

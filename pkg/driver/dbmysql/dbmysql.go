@@ -3,7 +3,6 @@ package dbmysql
 import (
 	"github.com/duythuong2308/web_back_end/pkg/core"
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 type Repo struct {
@@ -36,6 +35,7 @@ func (r Repo) ReadDistrict(districtId string) (core.District, error) {
 	var ret core.District
 	err := r.DB.Debug().
 		Where(core.District{Id: districtId}).
+		Preload("Province").
 		First(&ret).Error
 	return ret, err
 }
@@ -60,6 +60,8 @@ func (r Repo) ReadCommnue(communeId string) (core.Commune, error) {
 	var ret core.Commune
 	err := r.DB.Debug().
 		Where(core.Commune{Id: communeId}).
+		Preload("District").
+		Preload("District.Province").
 		First(&ret).Error
 	return ret, err
 }
@@ -94,15 +96,22 @@ func (r Repo) ReadVillage(villageId string) (core.Village, error) {
 	var ret core.Village
 	err := r.DB.Debug().
 		Model(&core.Village{}).
-		Joins("JOIN communes ON villages.commune_id = communes.id").
 		Where(core.Village{Id: villageId}).
-		Preload(clause.Associations).
+		Preload("Commune").
+		Preload("Commune.District").
+		Preload("Commune.District.Province").
 		First(&ret).Error
 	return ret, err
 }
 
 func (r Repo) DeleteVillage(villageId string) error {
 	return r.DB.Delete(&core.Village{}, villageId).Error
+}
+
+func (r Repo) ReadUser(username string) (core.User, error) {
+	ret := core.User{Username: username}
+	err := r.DB.First(&ret).Error
+	return ret, err
 }
 
 func (r Repo) UpsertUser(user core.User) error {

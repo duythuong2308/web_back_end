@@ -58,7 +58,7 @@ func main() {
 				log.Printf("error CreateUser: %v", err)
 			}
 
-			communes, err := database.ReadCommunes(province.Id)
+			communes, err := database.ReadCommunes(district.Id)
 			if err != nil {
 				log.Fatalf("error ReadCommunes: %v", err)
 			}
@@ -75,7 +75,7 @@ func main() {
 					log.Printf("error CreateUser: %v", err)
 				}
 
-				villages, err := database.ReadVillages(province.Id)
+				villages, err := database.ReadVillages(commune.Id)
 				if err != nil {
 					log.Fatalf("error ReadVillages: %v", err)
 				}
@@ -96,6 +96,4 @@ func main() {
 		}
 	}
 	log.Printf("done")
-
-
 }

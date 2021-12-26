@@ -59,7 +59,12 @@ func _TestRepo_DeleteProvince(t *testing.T) {
 
 func TestRepo_UpsertDistrict(t *testing.T) {
 	err := repo0.UpsertDistrict(core.District{
-		Id: "0101", ProvinceId: "01", Name: "huyện abc"})
+		Id: "0101", ProvinceId: "01", Name: "huyện 0101"})
+	if err != nil {
+		t.Errorf("error District: %v", err)
+	}
+	err = repo0.UpsertDistrict(core.District{
+		Id: "1010", ProvinceId: "10", Name: "huyện 1010"})
 	if err != nil {
 		t.Errorf("error District: %v", err)
 	}
@@ -71,7 +76,10 @@ func TestRepo_ReadDistrict(t *testing.T) {
 		t.Errorf("error ReadDistrict: %v", err)
 	}
 	t.Logf("read: %v", read)
-
+	if read.Province == nil {
+		t.Fatalf("error ReadVillage nil Province")
+	}
+	t.Logf("province: %+v", read.Province)
 }
 
 func _TestRepo_DeleteDistrict(t *testing.T) {
@@ -95,7 +103,14 @@ func TestRepo_ReadCommnue(t *testing.T) {
 		t.Errorf("error ReadCommune: %v", err)
 	}
 	t.Logf("read: %v", read)
-
+	if read.District == nil {
+		t.Fatalf("error ReadVillage nil District")
+	}
+	t.Logf("district: %+v", read.District)
+	if read.District.Province == nil {
+		t.Fatalf("error ReadVillage nil Province")
+	}
+	t.Logf("province: %+v", read.District.Province)
 }
 
 //func TestRepo_DeleteCommune(t *testing.T) {
@@ -119,12 +134,33 @@ func TestRepo_ReadVillage(t *testing.T) {
 	if err != nil {
 		t.Errorf("error ReadVillage: %v", err)
 	}
-	t.Logf("read: %+v", read)
+	t.Logf("village: %+v", read)
+	if read.Commune == nil {
+		t.Fatalf("error ReadVillage nil Commune")
+	}
+	t.Logf("commune: %+v", read.Commune)
+	if read.Commune.District == nil {
+		t.Fatalf("error ReadVillage nil District")
+	}
+	t.Logf("district: %+v", read.Commune.District)
+	if read.Commune.District.Province == nil {
+		t.Fatalf("error ReadVillage nil Province")
+	}
+	t.Logf("province: %+v", read.Commune.District.Province)
 }
 
 func _TestRepo_DeleteVillage(t *testing.T) {
 	err := repo0.DeleteVillage("01010101")
 	if err != nil {
 		t.Errorf("error: %v", err)
+	}
+}
+
+func TestRepo_ReadUser(t *testing.T) {
+	row, err := repo0.ReadUser("0101")
+	if err != nil {
+		t.Error(err)
+	} else {
+		t.Logf("user: %+v", row)
 	}
 }

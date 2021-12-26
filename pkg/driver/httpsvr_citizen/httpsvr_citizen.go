@@ -3,6 +3,10 @@ package httpsvr_citizen
 import (
 	"net/http"
 
+	"strings"
+
+	"fmt"
+
 	"github.com/duythuong2308/web_back_end/pkg/core"
 	"github.com/duythuong2308/web_back_end/pkg/driver/dbmysql"
 	"github.com/mywrap/httpsvr"
@@ -19,6 +23,8 @@ func NewServer(database *dbmysql.Repo) *Server {
 		Database: database,
 	}
 	s.AddHandler("GET", "/api/hello", s.getHello)
+
+	s.AddHandler("POST", "/api/login", s.postLogin)
 
 	s.AddHandler("GET", "/api/province", s.getProvinces)
 	s.AddHandler("POST", "/api/province", s.postProvince)
@@ -49,6 +55,104 @@ func (s Server) getHello(w http.ResponseWriter, r *http.Request) {
 type Response struct {
 	Data  interface{}
 	Error string
+}
+
+type LoginRequest struct {
+	Username string
+	Password string
+}
+
+type LoginResponse struct {
+	User     core.User
+	Location interface{} // Province or District or Commune or Village
+	Managers []core.User // các cấp trên
+	Error    string
+}
+
+func (s Server) postLogin(w http.ResponseWriter, r *http.Request) {
+	var req LoginRequest
+	err := s.ReadJson(r, &req)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, LoginResponse{Error: err.Error()})
+		return
+	}
+	ret, status := s.readLoginInfo(req)
+	w.WriteHeader(status)
+	s.WriteJson(w, r, ret)
+}
+
+func (s Server) readLoginInfo(req LoginRequest) (ret LoginResponse, status int) {
+	user, err := s.Database.ReadUser(req.Username)
+	if err != nil {
+		if strings.Contains(err.Error(), "not found") {
+			ret.Error = "username does not exist"
+			return ret, http.StatusUnauthorized
+		} else {
+			ret.Error = err.Error()
+			return ret, http.StatusInternalServerError
+		}
+	}
+	//log.Debugf("user: %+v, req: %+v", user, req)
+	if user.Password != req.Password {
+		ret.Error = "wrong password"
+		return ret, http.StatusUnauthorized
+	}
+	ret.User = user
+
+	switch user.Role {
+	case core.RoleA1:
+	case core.RoleA2:
+		province, err := s.Database.ReadProvince(user.Username)
+		if err != nil {
+			ret.Error = fmt.Sprintf("fail link A2 user to province: %v", err)
+			return ret, http.StatusInternalServerError
+		}
+		ret.Location = province
+	case core.RoleA3:
+		district, err := s.Database.ReadDistrict(user.Username)
+		if err != nil {
+			ret.Error = fmt.Sprintf("fail link A3 user to district: %v", err)
+			return ret, http.StatusInternalServerError
+		}
+		ret.Location = district
+		userProvince, _ := s.Database.ReadUser(district.ProvinceId)
+		ret.Managers = append(ret.Managers, userProvince)
+	case core.RoleB1:
+		commune, err := s.Database.ReadCommnue(user.Username)
+		if err != nil {
+			ret.Error = fmt.Sprintf("fail link B1 user to commune: %v", err)
+			return ret, http.StatusInternalServerError
+		}
+		ret.Location = commune
+		userDistrict, _ := s.Database.ReadUser(commune.DistrictId)
+		ret.Managers = append(ret.Managers, userDistrict)
+		if commune.District != nil { // sure
+			userProvince, _ := s.Database.ReadUser(commune.District.ProvinceId)
+			ret.Managers = append(ret.Managers, userProvince)
+		}
+	case core.RoleB2:
+		village, err := s.Database.ReadVillage(user.Username)
+		if err != nil {
+			ret.Error = fmt.Sprintf("fail link B2 user to village: %v", err)
+			return ret, http.StatusInternalServerError
+		}
+		ret.Location = village
+		userCommune, _ := s.Database.ReadUser(village.CommuneId)
+		ret.Managers = append(ret.Managers, userCommune)
+		if village.Commune != nil {
+			userDistrict, _ := s.Database.ReadUser(village.Commune.DistrictId)
+			ret.Managers = append(ret.Managers, userDistrict)
+			if village.Commune.District != nil { // sure
+				userProvince, _ := s.Database.ReadUser(village.Commune.District.ProvinceId)
+				ret.Managers = append(ret.Managers, userProvince)
+			}
+		}
+	default:
+		ret.Error = "unexpected user role: " + string(user.Role)
+		return ret, http.StatusInternalServerError
+	}
+	return ret, http.StatusOK
 }
 
 func (s Server) getProvinces(w http.ResponseWriter, r *http.Request) {
