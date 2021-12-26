@@ -117,3 +117,11 @@ func (r Repo) ReadUser(username string) (core.User, error) {
 func (r Repo) UpsertUser(user core.User) error {
 	return r.DB.Save(&user).Error
 }
+
+func (r Repo) UpsertCitizen(citizen core.Citizen) error {
+	return r.DB.Debug().Save(&citizen).Error
+}
+
+func (r Repo) DeleteCitizen(citizenId string) error {
+	return r.DB.Delete(&core.Citizen{}, citizenId).Error
+}

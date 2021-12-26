@@ -1,6 +1,8 @@
 package core
 
-import "time"
+import (
+	"time"
+)
 
 type Province struct {
 	Id   string `gorm:"primary_key;type:varchar(191)"`
@@ -50,16 +52,19 @@ const (
 )
 
 type Citizen struct {
-	Id               string `gorm:"type:varchar(191)"`
-	VillageId        string
-	Village          *Village `gorm:"constraint:fk_citizen_villageid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Name             string   `gorm:"type:varchar(191)"`
-	DateOfBirth      string   `gorm:"type:varchar(191)"`
-	Gender           string   `gorm:"type:varchar(191)"`
-	PlaceOfBirth     string   `gorm:"type:varchar(191)"`
-	PernamentAddress string   `gorm:"type:varchar(1023)"`
-	TemporaryAddress string   `gorm:"type:varchar(1023)"`
-	Religion         string   `gorm:"type:varchar(191)"`
-	EducationLevel   string   `gorm:"type:varchar(191)"`
-	Job              string   `gorm:"type:varchar(191)"`
+	Id               	string `gorm:"type:varchar(191)"`
+	VillageId        	string
+	Village          	*Village`gorm:"constraint:fk_citizen_villageid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Name             	string  `gorm:"type:varchar(191)"`
+	DateOfBirth      	string   `gorm:"type:varchar(191)"`
+	Gender           	string  `gorm:"type:varchar(191)"`
+	PlaceOfBirth     	string  `gorm:"type:varchar(191)"`
+	PernamentAddress 	string   `gorm:"type:varchar(1023)"`
+	TemporaryAddress 	string   `gorm:"type:varchar(1023)"`
+	Religion         	string   `gorm:"type:varchar(191)"`
+	EducationLevel   	string   `gorm:"type:varchar(191)"`
+	Job              	string  `gorm:"type:varchar(191)"`
+	IdDate				string	`gorm:"type:varchar(191)"`
+	IdPlace				string	`gorm:"type:varchar(191)"`
+	Note 				string	`gorm:"type:varchar(1023)"`
 }

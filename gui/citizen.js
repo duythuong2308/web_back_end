@@ -33,7 +33,6 @@ function loadArrayToTable(tableElem, array) {
             if (keys[col] === "Id") {
                 let a = document.createElement('a');
                 a.appendChild(document.createTextNode(value));
-                a.href = `/gui/citizen.html?villageId=${value}`;
                 td.appendChild(a);
             } else {
                 td.appendChild(document.createTextNode(value));
@@ -42,7 +41,7 @@ function loadArrayToTable(tableElem, array) {
         }
         let td = document.createElement("td");
         var x = document.createElement("BUTTON");
-        x.id = `deleteVillage${array[row]["Id"]}`;
+        x.id = `deleteCitizen${array[row]["Id"]}`;
         var t = document.createTextNode("Xóa");
         x.appendChild(t);
         td.appendChild(x);
@@ -51,7 +50,7 @@ function loadArrayToTable(tableElem, array) {
 
         x.addEventListener("click",function () {
             var xhr = new XMLHttpRequest();
-            xhr.open("DELETE", '/api/village', true);
+            xhr.open("DELETE", '/api/citizen', true);
             xhr.send(JSON.stringify({"Id": array[row]["Id"]}));
         })
     }
@@ -61,8 +60,8 @@ function loadArrayToTable(tableElem, array) {
 }
 
 window.onload = async () => {
-    console.log("load villages");
+    console.log("load citizens");
     let resp = await FetchBackendRows(GetBackend(),
-        "/api/village"+window.location.search);
-    loadArrayToTable(document.getElementById("villages"), resp["Data"]);
+        "/api/citizen"+window.location.search);
+    loadArrayToTable(document.getElementById("citizens"), resp["Data"]);
 };

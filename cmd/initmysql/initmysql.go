@@ -41,8 +41,11 @@ func main() {
 	if err != nil {
 		log.Printf("error create table: %v", err)
 	}
-	log.Print("hihi")
 	err = db.AutoMigrate(&core.User{})
+	if err != nil {
+		log.Printf("error create table: %v", err)
+	}
+	err = db.AutoMigrate(&core.Citizen{})
 	if err != nil {
 		log.Printf("error create table: %v", err)
 	}

@@ -43,6 +43,9 @@ func NewServer(database *dbmysql.Repo) *Server {
 	s.AddHandler("POST", "/api/village", s.postVillage)
 	s.AddHandler("DELETE", "/api/village", s.deleteVillage)
 
+	s.AddHandler("POST", "/api/citizen", s.postCitizen)
+	s.AddHandler("DELETE", "/api/citizen", s.deleteCitizen)
+
 	return s
 }
 
@@ -327,4 +330,34 @@ func (s Server) deleteVillage(w http.ResponseWriter, r *http.Request) {
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
 	s.WriteJson(w, r, Response{Data: "deleted village"})
+}
+
+func (s Server) postCitizen(w http.ResponseWriter, r *http.Request) {
+	var citizen core.Citizen
+	err := s.ReadJson(r, &citizen)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	err = s.Database.UpsertCitizen(citizen)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	s.WriteJson(w, r, Response{Data: citizen})
+}
+
+func (s Server) deleteCitizen(w http.ResponseWriter, r *http.Request) {
+	var row core.Citizen
+	err := s.ReadJson(r, &row)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	err = s.Database.DeleteCitizen(row.Id)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	s.WriteJson(w, r, Response{Data: "deleted citizen"})
 }
