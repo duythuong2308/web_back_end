@@ -51,6 +51,7 @@ function loadArrayToTable(tableElem, array) {
             var xhr = new XMLHttpRequest();
             xhr.open("DELETE", '/api/province', true);
             xhr.send(JSON.stringify({"Id": array[row]["Id"]}));
+            window.location.reload();
         })
 	}
 

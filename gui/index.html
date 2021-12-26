@@ -24,12 +24,7 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required="required"/>
                 </div>
-                <div class="form-group">
-                    <label class="form-remember">
-                        <input type="checkbox"/>Remember Me
-                    </label><a class="form-recovery" href="#">Forgot Password?</a>
-                </div>
-            <input id="loginResponse" disabled="disabled" size="62">
+                <input id="loginResponse" disabled="disabled" size="62">
                 <div class="form-group">
                     <button id="login">Đăng nhập</button>
                 </div>
@@ -58,14 +53,16 @@
                     return
                 }
                 console.log(resp["User"]["Role"]);
-                if (resp["User"]["Role"] === "A2") {
+                if (resp["User"]["Role"] === "A1") {
+                    window.location.href = `/gui/website.html`
+                } else if (resp["User"]["Role"] === "A2") {
                     window.location.href = `/gui/district.html?provinceId=${resp["Location"]["Id"]}`
                 } else if (resp["User"]["Role"] === "A3") {
                     window.location.href =`/gui/commune.html?districtId=${resp["Location"]["Id"]}`
                 } else if (resp["User"]["Role"] === "B1") {
                     window.location.href =`/gui/village.html?communeId=${resp["Location"]["Id"]}`
-                } else if (resp["User"]["Role"] === "B1") {
-                    window.location.href =`/gui/website.html`
+                } else if (resp["User"]["Role"] === "B2") {
+                    window.location.href =`/gui/citizen.html?villageId=${resp["Location"]["Id"]}`
                 }
             }
         };

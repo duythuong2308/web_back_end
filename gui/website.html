@@ -68,30 +68,6 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">User</span>
-                                <img class="img-profile rounded-circle"
-                                    src="Pro5.jpg">
-                            </a>
         <!-- Navigation-->
         <div class= "tieude">
 
@@ -104,10 +80,10 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#homepage">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#baocao">Báo Cáo</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#thongke">Thống kê</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#qltk">Quản lí tài khoản</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#tkttp">Thống kê tỉnh/thành phố</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#tkqh">Thống kê quận/huyện</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#tkxp">Thống kê xã/phường</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#tktbtdp">Thống kê thôn/bản/tổ dân phó</a></li>
                 </ul>
             </div>
 
@@ -116,84 +92,23 @@
         <!-- Page Content-->
         <div class="container-fluid p-0">
             <!-- homepage-->
-            <section class="resume-section" id="homepage">
-
+            <section class="resume-section" id="tkttp">
+                <a href="province.html">Thống kê cấp tỉnh/thành phố</a>
             </section>
             <hr class="m-0" />
-            <!-- baocao-->
-            <section class="reusume-section" id="baocao">
-            <form action="" method="" enctype="multipart/form-data">
-                <span style= "font-size: 30px; font-weight: bold; "><p>Thêm thông tin người dân</p></span>
-                <b>Nhập họ tên</b> <input type="text" id="name" value="" placeholder="Nhập họ tên..."><br>
-                <br>
-                <b>Ngày sinh</b> <input type="date" id="dateofbirth" value="" placeholder="Nhập tuổi...">
-                <br>
-                <br>
-                <b>Giới tính</b> <input type="text" id="gender" value="" placeholder="Nhập giới tính...">
-                <br>
-                <br>
-                <b>Tôn giáo</b> <input type="text" id="religion" value="" placeholder="Nhập tôn giáo..."><br>
-                <br>
-                <b>Quê quán</b> <input type="email" name="placeofbirth" value="" placeholder="Nhập quê quán... "><br><br>
-                <div class = "CMND">
-                <b>CMND/CCCD</b> <input type="password" id="id" value="" placeholder="ID number"><br>
-                <b>Ngày cấp</b> <input type="date" id="iddate" value="" placeholder="Nhập tuổi...">
-                <br>
-                <b>Nơi cấp</b> <input type="text" id="idplace" value="" placeholder="Nhập nơi cấp..."><br>
-                </div>
-                <br>
-                <b>Địa chỉ tạm trú</b> <input type="text" id="temporaryaddress" value="" placeholder="Nhập địa chỉ..."><br>
-                <br>
-                <b>Địa chỉ thường trú</b> <input type="text" id="pernamentaddress" value="" placeholder="Nhập địa chỉ..."><br>
-                <br>
-                <b>Trình độ văn hóa</b> <input type="text" id="educationlevel" value="" placeholder="Nhập trình độ..."><br>
-                <br>
-                <b>Nghề nghiệp</b> <input type="text" id="job" value="" placeholder="Nhập nghề nghiệp..."><br>
-                <br>
-                <b>Ghi chú</b> <textarea id="note" rows="10" cols="100"></textarea><br>
 
-                <input type="button" id="submit" value="Gửi">
-                <input type="button" id="reset" value="Làm mới">
-                <script>
-                    document.getElementById("submit").addEventListener("click", function () {
-                        let reqBody = {
-                            "Name": document.getElementById("name").value,
-                            "DateofBirth": document.getElementById("dateofbirth").value,
-                            "Gender":	document.getElementById("gender").value,
-                            "Religion": document.getElementById("religion").value,
-                            "PlaceOfBirth": document.getElementById("religion").value,
-                            "Id": document.getElementById("id").value,
-                            "IdDate": document.getElementById("iddate").value,
-                            "IdPlace": document.getElementById("idplace").value,
-                            "TemporaryAddress" : document.getElementById("temporaryaddress").value,
-                            "PernamentAddress" : document.getElementById("pernamentaddress").value,
-                            "EducationLevel" : document.getElementById("educationlevel").value,
-                            "Job" : document.getElementById("job").value,
-                            "Note" : document.getElementById("note").value,
-                        }
-                        console.log("reqBody:",reqBody)
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", '/api/citizen', true);
-                        xhr.send(JSON.stringify(reqBody));
-                    })
-                    document.getElementById("reset").addEventListener("click",function () {
-                        window.location.reload();
-                    })
-                </script>
-            </form>
-
-            </section>
-            <!-- thongke-->
-            <section class="resume-section" id="thongke">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Thống Kê</h2>
+            <section class="reusume-section" id="tkqh">
+                <a href="district.html">Thống kê cấp quận/huyện</a>
             </section>
             <hr class="m-0" />
-            <!-- qltk-->
-            <section class="resume-section" id="qltk">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Quản lí tài khoản</h2>
-                </div>
+
+            <section class="resume-section" id="tkxp">
+                <a href="commune.html">Thống kê cấp xã/phường</a>
+            </section>
+            <hr class="m-0" />
+
+            <section class="resume-section" id="tktbtdp">
+                <a href="village.html">Thống kê cấp thôn/bản/tổ dân phố</a>
             </section>
             <hr class="m-0" />
         <!-- Bootstrap core JS-->

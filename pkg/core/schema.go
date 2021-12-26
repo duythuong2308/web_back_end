@@ -21,7 +21,7 @@ type Commune struct {
 	DistrictId  string    `gorm:"type:varchar(191)"`
 	District    *District `gorm:"constraint:fk_communes_districtid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Name        string    `gorm:"type:varchar(191)"`
-	Population  int
+	Population  string		`gorm:"type:varchar(191)"`
 	IsCompleted bool
 }
 
@@ -30,7 +30,7 @@ type Village struct {
 	CommuneId  string   `gorm:"type:varchar(191)"`
 	Commune    *Commune `gorm:"constraint:fk_villages_communeid,OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Name       string   `gorm:"type:varchar(191)"`
-	Population int
+	Population string	`gorm:"type:varchar(191)"`
 }
 
 type User struct {

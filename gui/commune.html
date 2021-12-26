@@ -7,7 +7,44 @@
     <meta charset="utf-8">
     <script type="text/javascript" src="share.js"></script>
     <script type="text/javascript" src="commune.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>CitizenV</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/Pro5.jpg" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
     <style type="text/css">
+        .CMND{
+            display: flex;
+        }
+
+        table, tr, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            /*min-width: 15vw;*/
+            max-width: 20vw;
+            word-wrap: break-word;
+        }
+
+        input[type=text], input[type=date], input[type=email], textarea {
+
+            padding: 5px;
+            border: 1px solid black;
+            width: 300px;
+        }
+
+        b {
+            float: left; width: 120px;
+        }
+
         table, tr, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -19,43 +56,106 @@
     </style>
 </head>
 
+<body id="page-top">
 
-<body>
-<h1 style="text-align: center">Danh sách các xã/phường</h1>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-<br/>
-<div>
-    <label class="add_commune">Thêm xã:</label>
-    <label class="new_commune_id">ID:</label><input type="text" id="id_new_commune" name="id_new_comune">
-    <label class="new_commune_districtid">ID quận/huyện:</label><input type="text" id="districtid_new_commune" name="districtid_new_commune">
-    <label class="new_commune_name">Tên xã/phường:</label><input type="text" id="name_new_commune" name="name_new_commune">
-    <!--<label class="new_commune_population">Dân số:</label><input type="text" id="population_new_commune" name="population_new_commune">-->
-    <input type="button" id="add_new_commune" value="Xác nhận">
-    <script>
-        document.getElementById("add_new_commune").addEventListener("click", function () {
-            let reqBody = {
-                "Id": document.getElementById("id_new_commune").value,
-                "DistrictId": document.getElementById("districtid_new_commune").value,
-                "Name":	document.getElementById("name_new_commune").value,
-                <!--"Population": document.getElementById("population_new_commune").value,-->
-            }
-            console.log("reqBody:",reqBody)
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", '/api/commune', true);
-            xhr.send(JSON.stringify(reqBody));
-            window.location.reload();
+    <!-- Sidebar Toggle (Topbar) -->
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
 
-        })
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
 
-    </script>
+        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+        <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                 aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small"
+                               placeholder="Search for..." aria-label="Search"
+                               aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
 
-</div>
-<br>
-<div>
-    <table id="communes"></table>
-</div>
+        <!-- Navigation-->
+        <div class= "tieude">
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                    <span class="d-block d-lg-none">CitizenV</span>
+                    <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile1.jpg" alt="..." /></span>
+                </a>
+                <div class= "tieude"></div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#baocao">Báo cáo</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#thongke">Thống kê</a></li>
+                    </ul>
+                </div>
+
+        </div>
+</nav>
+
+<section class="reusume-section" id="baocao">
+    <form action="" method="" enctype="multipart/form-data">
+        <span style= "font-size: 30px; font-weight: bold; "><p>Thêm xã/phường:</p></span>
+        <b>Nhập ID:</b> <input type="text" id="id_new_commune" value="" placeholder="Nhập ID..."><br>
+        <br>
+        <b>Nhập ID quận/huyện:</b> <input type="text" id="districtid_new_commune" value="" placeholder="Nhập ID quận/huyện:..."><br>
+        <br>
+        <br>
+        <b>Nhập tên xã/phường:</b> <input type="text" id="name_new_commune" value="" placeholder="Nhập tên xã/phường:...">
+        <br>
+        <br>
+        <b>Nhập dân số:</b> <input type="text" id="population_new_commune" value="" placeholder="Nhập dân số:...">
+        <br>
+        <br>
+        <input type="button" id="submit" value="Gửi">
+        <input type="button" id="reset" value="Làm mới">
+
+        <script>
+            document.getElementById("submit").addEventListener("click", function () {
+                let reqBody = {
+                    "Id": document.getElementById("id_new_commune").value,
+                    "DistrictId": document.getElementById("districtid_new_commune").value,
+                    "Name":	document.getElementById("name_new_commune").value,
+                    "Population": document.getElementById("population_new_commune").value,
+                }
+                console.log("reqBody:",reqBody)
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/api/commune', true);
+                xhr.send(JSON.stringify(reqBody));
+                window.location.reload();
+            })
+
+        </script>
+    </form>
+</section>
+
+
+<section class="resume-section" id="thongke">
+    <div class="resume-section-content">
+        <h2 class="mb-5" style="text-align: center">Danh sách các xã/phường:</h2>
+        <table id="communes"></table>
+    </div>
+</section>
 
 </body>
-
 
 </html>

@@ -181,6 +181,14 @@ func (s Server) postProvince(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
+	err = s.Database.UpsertUser(core.User{
+		Username: province.Id, Password: "123qwe", Role: core.RoleA2,
+		BeginDeclare: time.Now(), EndDeclare: time.Now().Add(720 * time.Hour),
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
 	s.WriteJson(w, r, Response{Data: province})
 }
 
@@ -222,6 +230,15 @@ func (s Server) postDistrict(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
+
+	err = s.Database.UpsertUser(core.User{
+		Username: district.Id, Password: "123qwe", Role: core.RoleA3,
+		BeginDeclare: time.Now(), EndDeclare: time.Now().Add(720 * time.Hour),
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
 	s.WriteJson(w, r, Response{Data: district})
 }
 
@@ -259,6 +276,14 @@ func (s Server) postCommune(w http.ResponseWriter, r *http.Request) {
 		s.WriteJson(w, r, Response{Error: err.Error()})
 	}
 	err = s.Database.UpsertCommune(commune)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		s.WriteJson(w, r, Response{Error: err.Error()})
+	}
+	err = s.Database.UpsertUser(core.User{
+		Username: commune.Id, Password: "123qwe", Role: core.RoleB1,
+		BeginDeclare: time.Now(), EndDeclare: time.Now().Add(720 * time.Hour),
+	})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		s.WriteJson(w, r, Response{Error: err.Error()})
